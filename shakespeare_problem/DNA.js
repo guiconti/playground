@@ -18,6 +18,7 @@ class DNA {
         score++;
     }
     this.fitness = score / target.length;
+    this.fitness = Math.pow(this.fitness, 50);
   }
 
   crossover(partner){

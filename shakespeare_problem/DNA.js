@@ -2,6 +2,7 @@ class DNA {
   constructor(composition){
     this.genes = [];
     this.fitness = 0;
+    this.reproduceProbability = 0;
     for(let i = 0; i < composition.length; i++){
       this.genes[i] = newChar();
     }
@@ -19,6 +20,10 @@ class DNA {
     }
     this.fitness = score / target.length;
     this.fitness = Math.pow(this.fitness, 50);
+  }
+
+  calculateProbability(fitnessSum){
+    this.reproduceProbability = this.fitness / fitnessSum;
   }
 
   crossover(partner){

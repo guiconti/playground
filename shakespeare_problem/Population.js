@@ -29,20 +29,24 @@ class Population{
   naturalSelection(){
     this.matingPool = [];
 
-    let maxFitness = 0;
+    let fitnessSum = 0;
+
+    for(let i = 0; i < this.population.length; i++)
+      fitnessSum += this.population[i].fitness;
+
+    for(let i = 0; i < this.population.length; i++)
+      this.population[i].calculateProbability(fitnessSum);
 
     for(let i = 0; i < this.population.length; i++){
-      if (this.population[i].fitness > maxFitness){
-        maxFitness = this.population[i].fitness;
+      let randomPick = Math.random();
+      let index = 0;
+      while (randomPick > 0){
+        randomPick -= this.population[index].reproduceProbability;
+        index++;
       }
-    }
 
-    for(let i = 0; i < this.population.length; i++){
-      let fitness = this.population[i].fitness / maxFitness;
-      let fitnessRepetition = Math.floor(fitness * 100);
-      for (let j = 0; j < fitnessRepetition; j++){
-        this.matingPool.push(this.population[i]);
-      }
+      index--;
+      this.matingPool.push(this.population[index]);
     }
   }
 
